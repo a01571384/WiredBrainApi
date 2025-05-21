@@ -36,7 +36,7 @@ jobs:
         with:
           filename: WiredBrain.Tests/TestResults/**/coverage.cobertura.xml
           badge: false
-          fail_below_min: false        
+          fail_below_min: false
           hide_branch_rate: false
           hide_complexity: true
           indicators: true
