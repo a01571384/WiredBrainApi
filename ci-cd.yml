@@ -1,53 +1,37 @@
 name: Wired Brain Workflow
 
-# trigger on pushes to main or manual dispatch
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) checkout your code
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2) install .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      # 3) restore NuGet packages
-      - name: Restore dependencies
+      - name: Restore Dependencies
         run: dotnet restore
 
-      # 4) build in Release (no restore)
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      - id: build
+        name: Build
+        run: dotnet build --no-restore
 
-      # 5) run tests with Cobertura coverage
-      - name: Test
-        run: |
-          dotnet test WiredBrain.Tests/WiredBrain.Tests.csproj \
-            --configuration Release \
-            --no-build \
-            --collect:"XPlat Code Coverage" \
-            -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+      - id: test
+        if: steps.build.outcome == 'success'
+        name: Test
+        run: dotnet test "WiredBrain.Tests/WiredBrain.Tests.csproj" --collect "XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
-      # 6) upload the coverage XML (optional – lets you inspect it in Actions)
-      - name: Publish coverage artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-report
-          path: WiredBrain.Tests/TestResults/**/coverage.cobertura.xml
-
-      # 7) print a nice summary in the console
-      - name: Coverage summary
+      - id: coverage
+        name: Code Coverage Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           filename: WiredBrain.Tests/TestResults/**/coverage.cobertura.xml
