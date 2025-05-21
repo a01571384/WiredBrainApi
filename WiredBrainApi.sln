@@ -12,6 +12,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiredBrainApi.Web", "WiredB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiredBrain.Tests", "WiredBrain.Tests\WiredBrain.Tests.csproj", "{946AAB53-7F72-4A6C-8E2D-3B3B5001339B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{60B587B1-4277-4B3D-9D5A-825F881C4ECB}"
+	ProjectSection(SolutionItems) = preProject
+		ci-cd.yaml = ci-cd.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +36,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60B587B1-4277-4B3D-9D5A-825F881C4ECB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22F2D4F6-95AF-4EE1-8965-775002A11D44}
