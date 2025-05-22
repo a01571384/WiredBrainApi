@@ -73,5 +73,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: app-wiredbrainapi
-        resource-group: rg-wiredbrainapi
         package: app.zip
